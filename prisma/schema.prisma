@@ -5,9 +5,6 @@ generator client {
   provider = "prisma-client-js"
 }
 
-// Note that some adapters may set a maximum length for the String type by default, please ensure your strings are long
-// enough when changing adapters.
-// See https://www.prisma.io/docs/orm/reference/prisma-schema-reference#string for more information
 datasource db {
   provider = "sqlite"
   url      = "file:dev.sqlite"
@@ -31,4 +28,63 @@ model Session {
   emailVerified Boolean?  @default(false)
   refreshToken        String?
   refreshTokenExpires DateTime?
+}
+
+// ===== Customizer models =====
+
+model CustomizerConfig {
+  id          String            @id @default(cuid())
+  shop        String
+  productId   String
+  enabled     Boolean           @default(true)
+  baseImageUrl String?
+  maskImageUrl String?
+  createdAt   DateTime          @default(now())
+  updatedAt   DateTime          @updatedAt
+  groups      CustomizerGroup[]
+
+  @@unique([shop, productId])
+  @@index([shop])
+}
+
+model CustomizerGroup {
+  id        String              @id @default(cuid())
+  configId  String
+  name      String
+  type      String              // color | size | text | number | upload | addon
+  required  Boolean             @default(false)
+  zIndex    Int                 @default(0)
+  position  Int                 @default(0)
+  maxLength Int?                // for text/number
+  config    CustomizerConfig    @relation(fields: [configId], references: [id], onDelete: Cascade)
+  options   CustomizerOption[]
+
+  @@index([configId])
+}
+
+model CustomizerOption {
+  id        String          @id @default(cuid())
+  groupId   String
+  label     String
+  value     String
+  iconUrl   String?
+  layerUrl  String?
+  colorHex  String?
+  price     Float           @default(0)
+  position  Int             @default(0)
+  group     CustomizerGroup @relation(fields: [groupId], references: [id], onDelete: Cascade)
+
+  @@index([groupId])
+}
+
+model SavedDesign {
+  id         String   @id @default(cuid())
+  shop       String
+  productId  String
+  selections String   // JSON: { groupId: { optionId, value, ... } }
+  previewUrl String?
+  totalPrice Float    @default(0)
+  createdAt  DateTime @default(now())
+
+  @@index([shop, productId])
 }

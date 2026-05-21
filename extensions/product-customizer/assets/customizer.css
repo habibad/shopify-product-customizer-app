@@ -1,0 +1,244 @@
+/* Product Customizer — storefront styles. All classes are pc- prefixed. */
+
+.pc-launch-btn {
+  display: inline-block;
+  padding: 12px 24px;
+  margin: 12px 0;
+  background: var(--pc-button-color, #000);
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  transition: opacity 0.2s;
+}
+.pc-launch-btn:hover { opacity: 0.85; }
+
+.pc-modal {
+  position: fixed; inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+  display: none;
+  align-items: center; justify-content: center;
+  z-index: 99999;
+  padding: 20px;
+}
+.pc-modal.pc-open { display: flex; }
+.pc-modal-content {
+  background: #fff;
+  width: 100%; max-width: 1100px;
+  max-height: 95vh;
+  border-radius: 8px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  overflow: hidden;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.4);
+}
+@media (max-width: 768px) {
+  .pc-modal-content {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr;
+    max-height: 100vh;
+    border-radius: 0;
+  }
+}
+
+.pc-preview-pane {
+  background: #f5f5f5;
+  padding: 24px;
+  display: flex; align-items: center; justify-content: center;
+  position: relative;
+  min-height: 400px;
+}
+.pc-preview-stage {
+  position: relative;
+  width: 100%; max-width: 500px;
+  aspect-ratio: 1 / 1;
+}
+.pc-layer {
+  position: absolute;
+  inset: 0;
+  width: 100%; height: 100%;
+  object-fit: contain;
+  pointer-events: none;
+}
+.pc-mask {
+  mix-blend-mode: multiply;
+  opacity: 0.85;
+}
+.pc-text-overlay {
+  position: absolute;
+  cursor: move;
+  user-select: none;
+  font-weight: 700;
+  white-space: nowrap;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.pc-controls-pane {
+  padding: 24px;
+  overflow-y: auto;
+  max-height: 95vh;
+}
+.pc-modal-header {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #eee;
+}
+.pc-modal-header h2 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 600;
+}
+.pc-close-btn {
+  background: none; border: none;
+  font-size: 28px;
+  cursor: pointer;
+  color: #666;
+  line-height: 1;
+  padding: 0 8px;
+}
+.pc-close-btn:hover { color: #000; }
+
+.pc-group {
+  margin-bottom: 24px;
+}
+.pc-group-label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 8px;
+  font-size: 14px;
+  color: #222;
+}
+.pc-group-label .pc-required {
+  color: #d00;
+  margin-left: 4px;
+}
+
+.pc-swatches {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.pc-swatch {
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  border: 2px solid #ddd;
+  cursor: pointer;
+  position: relative;
+  background-size: cover;
+  background-position: center;
+  transition: transform 0.15s, border-color 0.15s;
+}
+.pc-swatch:hover { transform: scale(1.1); }
+.pc-swatch.pc-selected {
+  border-color: #000;
+  box-shadow: 0 0 0 2px #fff inset;
+}
+.pc-swatch-label {
+  display: block;
+  font-size: 11px;
+  text-align: center;
+  margin-top: 4px;
+  color: #666;
+}
+
+.pc-size-buttons {
+  display: flex; flex-wrap: wrap; gap: 6px;
+}
+.pc-size-btn {
+  padding: 8px 14px;
+  border: 1px solid #ddd;
+  background: #fff;
+  cursor: pointer;
+  border-radius: 4px;
+  font-size: 13px;
+  min-width: 44px;
+}
+.pc-size-btn.pc-selected {
+  background: #000;
+  color: #fff;
+  border-color: #000;
+}
+
+.pc-text-input,
+.pc-file-input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+.pc-text-input:focus {
+  outline: none;
+  border-color: #000;
+}
+.pc-input-hint {
+  font-size: 12px;
+  color: #888;
+  margin-top: 4px;
+}
+
+.pc-addon {
+  display: flex; align-items: center; gap: 10px;
+  padding: 12px;
+  border: 1px solid #eee;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.pc-addon input { margin: 0; }
+.pc-addon-price {
+  margin-left: auto;
+  font-weight: 600;
+  color: #444;
+}
+
+.pc-footer {
+  position: sticky;
+  bottom: 0;
+  background: #fff;
+  padding: 16px 0 0;
+  margin-top: 24px;
+  border-top: 1px solid #eee;
+}
+.pc-price {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+.pc-add-to-cart {
+  width: 100%;
+  padding: 14px;
+  background: #000;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.pc-add-to-cart:hover { background: #222; }
+.pc-add-to-cart:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+.pc-error {
+  background: #fee;
+  color: #c00;
+  padding: 8px 12px;
+  border-radius: 4px;
+  font-size: 13px;
+  margin-bottom: 12px;
+}
+.pc-loading {
+  text-align: center;
+  padding: 40px;
+  color: #888;
+}

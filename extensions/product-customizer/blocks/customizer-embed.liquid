@@ -1,0 +1,61 @@
+{% comment %}
+  Product Customizer — App Embed block.
+  Injects the customizer button + modal on product pages.
+  Merchant enables this in: Theme editor → App embeds → Product Customizer.
+{% endcomment %}
+
+{% if template contains 'product' and product %}
+  <script>
+    window.__PRODUCT_CUSTOMIZER__ = {
+      shop: {{ shop.permanent_domain | json }},
+      productId: {{ product.id | json }},
+      productHandle: {{ product.handle | json }},
+      productTitle: {{ product.title | json }},
+      basePrice: {{ product.price | json }},
+      currency: {{ shop.currency | json }},
+      moneyFormat: {{ shop.money_format | json }},
+      featuredImage: {{ product.featured_image | image_url: width: 1200 | json }},
+      apiBase: {{ block.settings.api_base | json }},
+      buttonText: {{ block.settings.button_text | json }},
+      buttonColor: {{ block.settings.button_color | json }},
+      modalTitle: {{ block.settings.modal_title | json }}
+    };
+  </script>
+
+  <link rel="stylesheet" href="{{ 'customizer.css' | asset_url }}">
+  <script src="{{ 'customizer.js' | asset_url }}" defer></script>
+{% endif %}
+
+{% schema %}
+{
+  "name": "Product Customizer",
+  "target": "head",
+  "settings": [
+    {
+      "type": "text",
+      "id": "api_base",
+      "label": "App URL",
+      "info": "Your app's URL (Cloudflare tunnel during dev, e.g. https://xxx.trycloudflare.com). Update this each dev session.",
+      "default": "https://your-app-url.trycloudflare.com"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button text",
+      "default": "Customize this product"
+    },
+    {
+      "type": "color",
+      "id": "button_color",
+      "label": "Button color",
+      "default": "#000000"
+    },
+    {
+      "type": "text",
+      "id": "modal_title",
+      "label": "Modal title",
+      "default": "Customize your product"
+    }
+  ]
+}
+{% endschema %}
